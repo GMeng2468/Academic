@@ -1,0 +1,39 @@
+baseurl = "https://github.com/GMeng2468/Academic.git"#设置网站的根URL。如果网站部署在子目录，需要相应修改。
+title = "初入职场学艺" #设置网站标题。
+languageCode = "en-us"
+paginate = "10" # Number of posts per page 设置每页显示的文章数量。
+theme = "mainroad" # 指定使用的主题。
+disqusShortname = "" # Enable comments by entering your Disqus shortname
+googleAnalytics = "" # Enable Google Analytics by entering your tracking id
+
+
+[Author] #配置作者信息，包括姓名、简介和头像。
+  name = "郭 孟"
+  bio = "有金属合金的制备及加工的课题经历，熟悉金属材料的性能强化及失效分析；\n\n有传统汽车电子制造业的相关工作经历，熟悉SMT和组装生产流程的制造工艺；\n\n思维清晰敏捷，逻辑分析能力较好，能快速学习新知识，动手能力较强；\n\n性格开朗，工作脚踏实地，有较强的团队精神，态度认真，具备抗压能力；"
+  avatar = "img/证件照片.png"
+
+[Params]
+  description = "John Doe's Personal blog about everything" # Description of your site
+  opengraph = true
+  twitter_cards = false
+  readmore = false # Show "Read more" button in list if true
+  authorbox = true
+  pager = true
+  post_meta = ["date", "categories"] # Order of post meta information
+  mainSections = ["post", "docs"] #定义主要内容部分，用于生成主页和导航菜单。在网站头部菜单中，你可能会看到指向“博客”（在 posts 下）和“文档”（在 docs 下）的链接，这些链接将用户引导至这些主要部分。
+
+
+[Params.logo]
+  subtitle = "吃好 喝好 睡好 天天开心" # Logo subtitle 设置网站Logo的子标题。
+
+[Params.sidebar] #配置不同页面（首页、列表页、单页）的侧边栏布局。
+  home = "right"   # Configure layout for home page
+  list = "right"   # Configure layout for list pages
+  single = "right" # Configure layout for single pages
+  # Enable widgets in given order
+  widgets = ["search", "recent", "categories", "taglist"]#启用并设置侧边栏中的小工具顺序。
+
+
+[Params.widgets]
+  recent_num = 5 # Set the number of articles in the "Recent articles" widget设置“最近文章”小工具中显示的文章数量。
+  tags_counter = false # Enable counter for each tag in "Tags" widget (disabled by default)是否启用标签计数器（此处设置为false）。

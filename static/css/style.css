@@ -1,0 +1,1397 @@
+{{- $highlightColor := .Site.Params.style.vars.highlightColor | default (.Site.Params.highlightColor | default "#e22d30") -}}
+
+{{- $fontSans := `"Open Sans", Helvetica, Arial, sans-serif` -}}
+{{- $fontMono := `SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace` -}}
+{{- $fontFamilyPrimary := .Site.Params.style.vars.fontFamilyPrimary | default $fontSans -}}
+{{- $fontFamilySecondary := .Site.Params.style.vars.fontFamilySecondary | default $fontMono -}}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+article,/* 用于表示文档、页面或网站中的独立组成部分。设置为块级元素后，它会独占一行，其后的内容会在新的一行显示。 */
+aside,/* 表示与主内容相关的辅助内容。作为块级元素，它也会独占一行。 */
+dialog,/* 表示对话或其他形式的交互式通信。尽管一些旧版浏览器可能不完全支持此标签，但设置为块级元素有助于确保其在布局中的表现一致。 */
+figcaption,/* 为<figure>元素内的内容提供标题或说明。虽然它通常是<figure>的子元素，并且其显示行为可能受父元素影响，但将其设置为块级元素可以确保标题的独立性。 */
+figure,/* 用于表示图像、图表、照片、代码片段等独立内容。作为块级元素，<figure>会独占一行，并且其内容（包括<figcaption>）会作为其子元素显示。 */
+footer,/* 表示页面或节的页脚。作为块级元素，它会独占一行，通常用于放置版权信息、公司标识等。 */
+header,/* 表示页面或节的头部。同样作为块级元素，它会独占一行，通常包含导航链接、标题、标志等。 */
+hgroup,/* 用于对标题进行分组，通常包含一系列级别不同的标题（如<h1>至<h6>）。然而，<hgroup>在HTML5规范中的使用有所争议，且现代网页设计中较少使用。尽管如此，将其设置为块级元素可以确保其在布局中的一致性。 */
+main,/* 表示文档的主要内容。作为块级元素，它应该包含页面上最重要的内容，且每个页面只能有一个<main>元素。 */
+nav,/* 表示文档中的节。作为块级元素，它用于对文档进行逻辑划分，可以包含标题（如<h1>至<h6>）、段落、列表等。 */
+section {
+	display: block;
+}
+/*
+这段CSS代码的作用是将一系列HTML5语义化标签的显示方式设置为block。
+在CSS中，display属性用于控制元素的显示类型。
+将display属性设置为block意味着这些元素将显示为块级元素。
+*/
+
+:focus::-webkit-input-placeholder {
+	color: transparent;
+}
+/*当使用WebKit内核的浏览器中的输入框获得焦点时，将占位符的颜色设置为透明。*/
+:focus::-moz-placeholder {
+	color: transparent;
+}
+/* 当使用Mozilla内核的浏览器中的输入框获得焦点时，将占位符的颜色设置为透明。 */
+:focus:-moz-placeholder {
+	color: transparent;
+}
+/* 这是另一个针对旧版Firefox的兼容写法。 */
+:focus:-ms-input-placeholder {
+	color: transparent;
+}
+/* 当使用Microsoft的浏览器中的输入框获得焦点时，将占位符的颜色设置为透明。 */
+/*
+这段代码是CSS样式，用于设置当输入框（input元素）获得焦点时，占位符（placeholder）的颜色。
+这里使用了不同的浏览器前缀来确保兼容性，包括WebKit（Chrome和Safari）、Mozilla（Firefox）和Microsoft（Internet Explorer）的前缀。
+将占位符颜色设置为透明，意味着当用户点击输入框准备输入时，占位符文本会消失。
+这样用户就可以直接在输入框中输入内容，而不会被占位符文本干扰。这是一种提升用户体验的常见做法。
+*/
+
+/* Structure */
+html {
+	font-size: 100%;
+	-ms-text-size-adjust: none;
+	-webkit-text-size-adjust: none;
+}
+/* font-size: 100%;设置HTML元素的字体大小为浏览器默认字体大小的100%，即继承浏览器的默认字体大小。 */
+/* -ms-text-size-adjust: none;这是针对IE浏览器的属性，用于禁止在Windows Phone上自动调整文本大小。 */
+/* -webkit-text-size-adjust: none;这是针对WebKit内核的浏览器（如Chrome、Safari等）的属性，同样用于禁止自动调整文本大小，特别是在移动设备上。 */
+
+body {
+	margin: 0;
+	font-family: {{ $fontFamilyPrimary }};
+	font-size: 14px;
+	font-size: .875rem;
+	line-height: 1.6;
+	word-wrap: break-word;
+	background: #f7f7f7;
+	-webkit-font-smoothing: antialiased;
+}
+/* margin: 0;：设置网页主体（body）的外边距为0，这意味着网页内容会从浏览器的最边缘开始显示，没有空白间隔。 */
+/* 
+font-family: {{ $fontFamilyPrimary }};：这里使用了一个模板变量$fontFamilyPrimary来指定字体族。
+在实际应用中，这个变量应该被替换为具体的字体名称或字体栈（font stack），
+例如"Helvetica Neue", Helvetica, Arial, sans-serif。 
+*/
+/* font-size: 14px;：设置字体大小为14像素。 */
+/* 
+font-size: .875rem;：同时设置了字体大小为0.875倍的根元素（html元素）的字体大小。
+在CSS中，rem是一个相对单位，它相对于根元素（html）的字体大小。
+如果根元素的字体大小未设置，则默认为16px。
+因此，.875rem大约等于14px（16px * 0.875 = 14px），这里与前面的14px设置是等效的，可能是为了兼容不同的CSS处理或保持代码的一致性。 
+*/
+/* line-height: 1.6;：设置行高为字体大小的1.6倍，这有助于改善文本的可读性。 */
+/* word-wrap: break-word;：确保长单词或URL不会被强制在一行内显示完，而是在必要时断行，以避免布局问题。 */
+/* background: #f7f7f7;：设置背景颜色为浅灰色（#f7f7f7），这是一个常用的背景色，可以提供良好的文本对比度，同时不会过于刺眼。 */
+/* -webkit-font-smoothing: antialiased;：这是一个专门为WebKit浏览器（如Chrome和Safari）提供的属性，用于启用字体平滑处理，使得字体在屏幕上看起来更加平滑和清晰。 */
+
+.container {
+	position: relative;
+	width: 100%;
+	max-width: 1080px;
+	margin: 0 auto;
+}
+/* position: relative;：设置元素的定位方式为相对定位。
+width: 100%;：宽度设置为父元素的100%。
+max-width: 1080px;：最大宽度限制为1080像素，这意味着当视口（viewport）宽度超过1080像素时，容器的宽度不会继续增长。
+margin: 0 auto;：上下外边距为0，左右外边距自动调整以实现水平居中。 */
+
+.container--outer {
+	margin: 25px auto;
+	box-shadow: 0 0 10px rgba(50, 50, 50, .17);
+}
+/* margin: 25px auto;：上下外边距为25像素，左右外边距自动调整以实现水平居中。
+box-shadow: 0 0 10px rgba(50, 50, 50, .17);：添加一个轻微的盒子阴影效果，颜色为半透明的灰色。 */
+
+.wrapper {
+	padding: 25px;
+	background: #fff;
+}
+/* padding: 25px;：内边距设置为25像素，用于元素内部的空白区域。
+background: #fff;：背景颜色设置为白色。 */
+
+.flex {
+	display: -webkit-flex;
+	display: flex;
+}
+/* display: -webkit-flex; display: flex;：使用Flexbox布局模型，-webkit-flex是为了兼容旧版本的WebKit浏览器（如旧版Safari和Chrome）。 */
+
+.primary {
+	-webkit-flex: 1 0 65.83%;
+	flex: 1 0 65.83%;
+	-webkit-order: 1;
+	order: 1;
+	min-width: 0;
+}
+/* -webkit-flex: 1 0 65.83%; flex: 1 0 65.83%;：设置Flex项目的增长系数为1，不允许收缩，基础比例为65.83%。这意味着它将占据可用空间的65.83%。
+-webkit-order: 1; order: 1;：设置Flex项目的排列顺序为1。
+min-width: 0;：最小宽度为0，这有助于在必要时收缩元素。 */
+
+.sidebar {
+	-webkit-flex: 1 0 31.66%;
+	flex: 1 0 31.66%;
+	-webkit-order: 2;
+	order: 2;
+	min-width: 0;
+	margin: 0 0 0 2.5%;
+}
+/* -webkit-flex: 1 0 31.66%; flex: 1 0 31.66%;：设置Flex项目的增长系数为1，不允许收缩，基础比例为31.66%。
+-webkit-order: 2; order: 2;：设置Flex项目的排列顺序为2。
+min-width: 0;：最小宽度为0。
+margin: 0 0 0 2.5%;：设置右侧外边距为2.5%，以在.primary和.sidebar之间创建间距。 */
+
+.sidebar--left {
+	-webkit-order: 0;
+	order: 0;
+	margin: 0 2.5% 0 0;
+}
+/* -webkit-order: 0; order: 0;：设置Flex项目的排列顺序为0，这通常用于将侧边栏放置在主要内容的左侧。
+margin: 0 2.5% 0 0;：设置左侧外边距为0，右侧外边距为2.5%，以适应左侧位置。 */
+
+.clearfix {
+	display: block;
+}
+/* display: block;：设置元素为块级显示。 */
+
+.clearfix::after {
+	display: block;
+	height: 0;
+	padding: 0;
+	margin: 0;
+	clear: both;
+	line-height: 0;
+	visibility: hidden;
+	content: "";
+}
+/* .clearfix::after：这是一个伪元素，用于清除浮动。
+display: block;：设置为块级显示。
+height: 0; padding: 0; margin: 0;：高度、内边距和外边距都设置为0。
+clear: both;：清除前面的浮动元素。
+line-height: 0;：行高设置为0。
+visibility: hidden;：隐藏元素，但它仍然占据空间。
+content: "";：内容设置为空字符串，这是生成伪元素所必需的。 */
+
+input,
+button,
+select,
+optgroup,
+textarea {
+	margin: 0;
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+}
+/* input：输入框，包括文本输入框、密码框、单选按钮、复选框等。
+button：按钮元素，用于用户点击执行某些操作。
+select：下拉选择框，用户可以从一个预定义的列表中选择一个或多个选项。
+optgroup：选项组，用于在select元素内将选项分组。
+textarea：多行文本输入框。 */
+/* margin: 0;：外边距设置为0。这意味着这些元素默认不会有任何额外的空间围绕它们，除非在其他CSS规则中明确指定。
+font-family: inherit;：字体族设置为继承父元素的字体族。
+font-size: inherit;：字体大小设置为继承父元素的字体大小。
+line-height: inherit;：行高设置为继承父元素的行高。 */
+
+/* Button */
+.btn {
+	padding: 5px 10px;
+	font-weight: 700;
+	color: #fff;
+	white-space: pre-line;
+	background: #2a2a2a;
+}
+/* padding: 5px 10px;：设置按钮的内边距。这里的5px是上下内边距，10px是左右内边距。内边距是按钮内容与按钮边框之间的空间。
+font-weight: 700;：设置按钮内文本的字体粗细。700等同于bold，意味着文本将以粗体显示。
+color: #fff;：设置按钮内文本的颜色为白色（#fff是白色的十六进制代码）。
+white-space: pre-line;：这个属性控制元素内的空白符处理。pre-line会合并空白符，但保留换行符。这意味着按钮内的文本如果包含换行，那么这些换行会被保留，但连续的空格会被合并成一个。
+background: #2a2a2a;：设置按钮的背景颜色为深灰色（#2a2a2a是一个暗灰色的十六进制代码）。 */
+.btn:hover {
+	color: #fff;
+	background: {{ $highlightColor }};
+}
+
+
+/* Animation */
+.menu__item,
+.btn {
+	transition: background-color .25s ease-out;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0 0 20px;
+	margin: 0 0 1.25rem;
+	font-weight: 700;
+	line-height: 1.3;
+	color: #000;
+}
+
+h1 {
+	font-size: 32px;
+	font-size: 2rem;
+}
+
+h2 {
+	font-size: 24px;
+	font-size: 1.5rem;
+}
+
+h3 {
+	font-size: 20px;
+	font-size: 1.25rem;
+}
+
+h4 {
+	font-size: 18px;
+	font-size: 1.125rem;
+}
+
+h5 {
+	font-size: 16px;
+	font-size: 1rem;
+}
+
+h6 {
+	font-size: 16px;
+	font-size: 1rem;
+}
+
+a {
+	color: #000;
+	text-decoration: none;
+}
+
+a:hover {
+	color: {{ $highlightColor }};
+}
+
+hr {
+	margin: 0 0 20px;
+	border: 0;
+	border-top: 1px solid #dadada;
+}
+
+p {
+	margin: 0 0 20px;
+	margin: 0 0 1.25rem;
+}
+
+b,
+strong {
+	font: inherit;
+	font-weight: 700;
+}
+
+i,
+em {
+	font: inherit;
+	font-style: italic;
+}
+
+ol,
+ul {
+	padding: 0;
+	margin: 0;
+}
+
+small {
+	font-size: 12px;
+	font-size: .75rem;
+}
+
+mark {
+	background-color: #fd5;
+}
+
+figure {
+	margin: 0 0 20px;
+	margin: 0 0 1.25rem;
+}
+
+figcaption {
+	margin-top: 4px;
+	margin-top: .25rem;
+	color: #666;
+}
+
+figcaption h4 {
+	margin: 0;
+	color: inherit;
+}
+
+pre,
+code,
+kbd,
+samp {
+	font-family: {{ $fontFamilySecondary }};
+	font-size: inherit;
+}
+
+pre,
+code {
+	background-color: #f5f5f5;
+	border: 1px solid #ebebeb;
+}
+
+code {
+	padding: 0 5px;
+	color: #c33;
+}
+
+pre {
+	display: block;
+	padding: 0;
+	padding: 1.25rem;
+	margin-bottom: 20px;
+	margin-bottom: 1.25rem;
+	overflow: auto;
+	color: #000;
+}
+
+pre code {
+	padding: 0;
+	color: inherit;
+	white-space: inherit;
+	background: inherit;
+	border: 0;
+}
+
+kbd {
+	padding: 2px 3px;
+	color: #fff;
+	background-color: #2a2a2a;
+}
+
+blockquote {
+	display: block;
+	padding: 5px 0 5px 15px;
+	margin: 0 0 20px;
+	margin: 0 0 1.25rem;
+	line-height: 1.6;
+	border-left: 5px solid {{ $highlightColor }};
+}
+
+blockquote p:last-child {
+	margin: 0;
+}
+
+blockquote footer {
+	text-align: right;
+}
+
+sup,
+sub {
+	font-size: 10px;
+	font-size: .625rem;
+	font-style: normal;
+}
+
+sup {
+	vertical-align: super;
+}
+
+sub {
+	vertical-align: sub;
+}
+
+abbr[title] {
+	text-decoration: none;
+	cursor: help;
+	border-bottom: 1px dotted #000;
+}
+
+q {
+	font-style: italic;
+}
+
+address {
+	margin-bottom: 20px;
+	margin-bottom: 1.25rem;
+	font-family: "Consolas", Courier New, Courier, monospace;
+	line-height: 1.5;
+}
+
+dl {
+	margin: 0 0 10px 20px;
+}
+
+dt,
+dd {
+	display: list-item;
+}
+
+dt {
+	font-weight: bold;
+	list-style-type: square;
+}
+
+dd {
+	margin-left: 20px;
+	list-style-type: circle;
+}
+
+select {
+	max-width: 100%;
+}
+
+.warning {
+	padding: 20px 10px;
+	text-align: center;
+	border: 1px solid #ddd;
+}
+
+.warning__icon {
+	margin-bottom: 20px;
+	fill: #ddd;
+}
+
+/* Header */
+.header {
+	background: #fff;
+}
+
+.logo {
+	padding: 25px;
+}
+
+.logo__link {
+	display: inline-block;
+}
+
+.logo__item {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.logo__img {
+	max-height: 256px;
+}
+
+.logo__text {
+	text-transform: uppercase;
+}
+
+.logo--mixed .logo__item {
+	margin: .5rem auto;
+}
+
+.logo--mixed .logo__img {
+	max-width: 128px;
+	max-height: 128px;
+}
+
+.logo--mixed .logo__text {
+	padding: 0 1rem;
+}
+
+.logo__title {
+	font-size: 32px;
+	font-size: 2rem;
+	font-weight: 700;
+	line-height: 1;
+	color: #000;
+}
+
+.logo__tagline {
+	display: inline-block;
+	padding-top: 10px;
+	margin-top: 10px;
+	font-size: 14px;
+	font-size: .875rem;
+	font-weight: 700;
+	line-height: 1;
+	color: {{ $highlightColor }};
+	border-top: 1px solid #ebebeb;
+}
+
+.divider {
+	height: 5px;
+	margin: 0;
+	background: {{ $highlightColor }};
+	border: 0;
+}
+
+/* Main menu */
+.no-js .menu__btn {
+	display: none;
+}
+
+.menu__btn {
+	display: block;
+	width: 100%;
+	padding: 0;
+	font: inherit;
+	color: #fff;
+	background: #2a2a2a;
+	border: 0;
+	outline: 0;
+}
+
+.menu__btn-title {
+	position: relative;
+	display: block;
+	padding: 10px 15px;
+	padding: .625rem .9375rem;
+	font-weight: 700;
+	text-align: right;
+	text-transform: uppercase;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+:focus > .menu__btn-title {
+	box-shadow: inset 0 0 1px 3px {{ $highlightColor }};
+}
+
+button:not(:-moz-focusring):focus > .menu__btn-title {
+	box-shadow: none;
+}
+
+.menu__btn:focus,
+.menu__btn-title:focus {
+	outline: 0;
+}
+
+.js .menu__btn--active {
+	color: {{ $highlightColor }};
+}
+
+.menu__list {
+	list-style: none;
+	background: #2a2a2a;
+}
+
+.menu__item:hover {
+	background: {{ $highlightColor }};
+}
+
+.menu__item:first-child {
+	border: 0;
+}
+
+.menu__item--active {
+	background: {{ $highlightColor }};
+}
+
+.menu__link {
+	display: block;
+	padding: 10px 15px;
+	padding: .625rem .9375rem;
+	font-weight: 700;
+	color: #fff;
+	text-transform: uppercase;
+}
+
+.menu__link:hover {
+	color: #fff;
+}
+
+.js .menu__list {
+	position: absolute;
+	z-index: 1;
+	width: 100%;
+	visibility: hidden;
+	-webkit-transform: scaleY(0);
+	transform: scaleY(0);
+	-webkit-transform-origin: top left;
+	transform-origin: top left;
+}
+
+.js .menu__list--active {
+	visibility: visible;
+	border-top: 1px solid rgba(255, 255, 255, .1);
+	border-bottom: 1px solid rgba(255, 255, 255, .1);
+	-webkit-transform: scaleY(1);
+	transform: scaleY(1);
+}
+
+.menu__list--transition {
+	transition: visibility .15s ease, transform .15s ease, -webkit-transform .15s ease;
+}
+
+@media screen and (min-width: 767px) {
+	.menu {
+		border-bottom: 5px solid {{ $highlightColor }};
+	}
+
+	.menu__btn {
+		display: none;
+	}
+
+	.menu__list,
+	.js .menu__list {
+		position: relative;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-flex-wrap: wrap;
+		flex-wrap: wrap;
+		visibility: visible;
+		border: 0;
+		-webkit-transform: none;
+		transform: none;
+	}
+
+	.menu__item {
+		border-left: 1px solid rgba(255, 255, 255, .1);
+	}
+}
+
+/* Posts/Pages */
+.post__header,
+.main__header {
+	margin-bottom: 20px;
+	margin-bottom: 1.25rem;
+}
+
+.main__title {
+	font-size: 28px;
+	font-size: 1.75rem;
+}
+
+.main__content {
+	margin-bottom: 20px;
+	margin-bottom: 1.25rem;
+}
+
+.meta {
+	font-size: 13px;
+	font-size: .8125rem;
+	vertical-align: baseline;
+}
+
+.meta,
+.meta a {
+	color: #666;
+}
+
+.meta a:hover {
+	color: {{ $highlightColor }};
+}
+
+.meta__item {
+	display: inline;
+	margin-left: 15px;
+}
+
+.meta__item:first-child {
+	margin-left: 0;
+}
+
+.meta__icon {
+	margin-right: 5px;
+	vertical-align: middle;
+	fill: #c4c4c4;
+}
+
+.meta__text {
+	vertical-align: middle;
+}
+
+.post__title {
+	margin: 0;
+}
+
+.post__meta {
+	padding: 5px 0;
+	margin-top: 10px;
+	margin-top: .625rem;
+	border-top: 1px dotted #ebebeb;
+	border-bottom: 1px dotted #ebebeb;
+}
+
+.post__lead {
+	margin-top: 4px;
+	margin-top: .25rem;
+	margin-bottom: 0;
+	font-size: 16px;
+	font-size: 1rem;
+	font-style: italic;
+}
+
+.post__thumbnail {
+	max-width: 1030px;
+	margin: 0 0 20px;
+	margin-bottom: 0 0 1.25rem;
+}
+
+.post__thumbnail img {
+	width: 100%;
+}
+
+.content a,
+.warning a,
+.authorbox__description a {
+	font-weight: 700;
+	color: {{ $highlightColor }};
+}
+
+.content a:hover,
+.warning a:hover,
+.author__description a:hover {
+	color: {{ $highlightColor }};
+	text-decoration: underline;
+}
+
+.content .alignnone {
+	display: block;
+	margin: 20px 0;
+	margin: 1.25rem 0;
+}
+
+.content .aligncenter {
+	display: block;
+	margin: 20px auto;
+	margin: 1.25rem auto;
+}
+
+.content .alignleft {
+	display: inline;
+	float: left;
+	margin: 5px 20px 20px 0;
+	margin: .3125rem 1.25rem 1.25rem 0;
+}
+
+.content .alignright {
+	display: inline;
+	float: right;
+	margin: 5px 0 20px 20px;
+	margin: .3125rem 0 1.25rem 1.25rem;
+}
+
+.content ul {
+	list-style: square;
+}
+
+.content ol {
+	list-style: decimal;
+}
+
+.content ul,
+.content ol {
+	margin: 0 0 20px 40px;
+}
+
+.content ul ul,
+.content ol ol,
+.content ol ul,
+.content ul ol {
+	margin: 0 0 0 40px;
+}
+
+.content li {
+	margin-bottom: 5px;
+}
+
+.post__footer {
+	margin-top: 20px;
+	margin-top: 1.25rem;
+}
+
+/* Post tags */
+.tags {
+	margin-bottom: 20px;
+	margin-bottom: 1.25rem;
+	font-size: 12px;
+	font-size: .75rem;
+	line-height: 1;
+	color: #fff;
+}
+
+.tags__list {
+	list-style: none;
+}
+
+.tags__item {
+	float: left;
+	margin: 0 6px 6px 0;
+	margin: 0 .375rem .375rem 0;
+	text-transform: uppercase;
+	background: #2a2a2a;
+}
+
+.tags__item:hover {
+	background: {{ $highlightColor }};
+}
+
+.tags__link,
+.tags__link:hover {
+	display: block;
+	padding: 10px 15px;
+}
+
+.tags__badge {
+	float: left;
+	width: 32px;
+	height: 32px;
+	padding: 8px;
+	margin-right: 6px;
+	background: {{ $highlightColor }};
+	fill: #fff;
+}
+
+/* Table of Contents */
+.toc {
+	margin-bottom: 20px;
+	font-weight: 700;
+	color: #7a8288;
+	background: #fff;
+	border-color: #ebebeb;
+	border-style: solid;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 0;
+	border-left-width: 1px;
+}
+
+.toc__title {
+	padding: 5px 10px;
+	color: #fff;
+	text-transform: uppercase;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+	background: #2a2a2a;
+}
+
+.toc__menu ul {
+	margin: 0;
+	list-style: none;
+}
+
+.toc__menu li li a {
+	padding-left: 25px;
+}
+
+.toc__menu li li li a {
+	padding-left: 45px;
+}
+
+.toc__menu li li li li a {
+	padding-left: 65px;
+}
+
+.toc__menu li li li li li a {
+	padding-left: 85px;
+}
+
+.toc__menu li li li li li li a {
+	padding-left: 105px;
+}
+
+.toc__menu li {
+	margin: 0;
+}
+
+.toc__menu a {
+	display: block;
+	padding: 5px 10px;
+	color: {{ $highlightColor }};
+	border-bottom: 1px solid #ebebeb;
+}
+
+.toc__menu a:hover {
+	text-decoration: underline;
+}
+
+/* Author Box */
+.authorbox {
+	padding: 25px 0 10px; /* 顶部25px，左右0，底部10px */
+	margin-bottom: 5px;
+	line-height: 1;
+	border-top: 1px solid #ebebeb;
+	border-bottom: 1px solid #ebebeb;
+}
+
+.authorbox__avatar {
+	float: left;
+	padding: 3px;
+	margin: 0 25px 20px 0;
+	border: 1px solid #ebebeb;
+}
+
+.authorbox__header {
+	margin-bottom: 10px;
+}
+
+.authorbox__name {
+	font-size: 16px;
+	font-size: 1rem;
+	font-weight: 700;
+}
+
+/* List content */
+.list__item {
+	padding-bottom: 20px;
+	padding-bottom: 1.25rem;
+	margin-bottom: 20px;
+	margin-bottom: 1.25rem;
+	border-bottom: 1px solid #ebebeb;
+}
+
+.list__header {
+	margin-bottom: 10px;
+	margin-bottom: .625rem;
+}
+
+.list__title {
+	font-size: 20px;
+	font-size: 1.25rem;
+}
+
+.list__meta {
+	margin-top: 5px;
+}
+
+.list__thumbnail {
+	float: left;
+	margin: 0 20px 0 0;
+}
+
+.list__thumbnail img {
+	width: 100%;
+	max-width: 235px;
+}
+
+.list__footer-readmore {
+	float: right;
+	margin-top: 10px;
+}
+
+/* Pagination */
+.pagination {
+	margin-top: 20px;
+}
+
+.pagination__item {
+	display: inline-block;
+	padding: 10px 15px;
+	font-weight: 700;
+	color: #000;
+	background: #f5f5f5;
+}
+
+.pagination__item:hover,
+.pagination__item--current {
+	color: #fff;
+	background: {{ $highlightColor }};
+}
+
+/* Pager (prev/next links) navigation */
+.pager {
+	-webkit-justify-content: space-between;
+	justify-content: space-between;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	margin-bottom: 25px;
+	border-bottom: 1px solid #ebebeb;
+}
+
+.pager__subtitle {
+	display: block;
+	margin-bottom: 5px;
+	font-weight: 700;
+	line-height: 1;
+	text-transform: uppercase;
+}
+
+.pager__title {
+	margin-bottom: 0;
+	overflow: hidden;
+	font-size: 13px;
+	font-size: .8125rem;
+}
+
+.pager__item {
+	-webkit-flex: 1 1 50%;
+	flex: 1 1 50%;
+	max-width: 48%;
+}
+
+.pager__item--next {
+	margin-left: auto;
+	text-align: right;
+}
+
+.pager__link {
+	display: block;
+}
+
+/* Images / Video */
+img {
+	width: auto\9; /* ie8 */
+	max-width: 100%;
+	height: auto;
+	vertical-align: bottom;
+}
+
+iframe,
+embed,
+object,
+video {
+	max-width: 100%;
+}
+
+/* Table */
+table {
+	width: 100%;
+	margin-bottom: 20px;
+	margin-bottom: 1.25rem;
+	border-spacing: 0;
+	border-collapse: collapse;
+	border-top: 1px solid #ebebeb;
+	border-left: 1px solid #ebebeb;
+}
+
+td,
+th {
+	padding: 5px 10px;
+	border-right: 1px solid #ebebeb;
+	border-bottom: 1px solid #ebebeb;
+}
+
+th {
+	font-weight: 700;
+}
+
+/* Forms */
+input {
+	padding: 5px;
+	font-size: 12px;
+	vertical-align: middle;
+	background: #f5f5f5;
+	border: 1px solid #ebebeb;
+	transition: all .25s ease-in-out;
+}
+
+input[type=text],
+input[type=email],
+input[type=tel],
+input[type=url] {
+	width: 60%;
+}
+
+input[type=text]:hover,
+input[type=email]:hover,
+input[type=tel]:hover,
+input[type=url]:hover,
+textarea:hover {
+	border: 1px solid #aaa;
+}
+
+input[type=submit],
+input[type=reset] {
+	display: inline-block;
+	min-width: 150px;
+	padding: 10px 15px;
+	font-weight: 700;
+	color: #fff;
+	text-transform: uppercase;
+	cursor: pointer;
+	background: #2a2a2a;
+	border: 0;
+	transition: all .1s linear;
+	-webkit-appearance: none;
+}
+
+input[type=submit]:hover,
+input[type=reset]:hover {
+	background: {{ $highlightColor }};
+}
+
+textarea {
+	width: 96%;
+	padding: 5px;
+	overflow: auto;
+	line-height: 1.5;
+	resize: vertical;
+	background: #f5f5f5;
+	border: 1px solid rgba(0, 0, 0, .1);
+}
+
+/* Widgets */
+.widget {
+	margin-bottom: 25px;
+	overflow: hidden;
+}
+
+.widget:last-child {
+	margin-bottom: 0;
+}
+
+.widget__title {
+	position: relative;
+	padding-bottom: 5px;
+	font-size: 16px;
+	font-size: 1rem;
+	text-transform: uppercase;
+	border-bottom: 3px solid {{ $highlightColor }};
+}
+
+.widget__item {
+	display: block;
+	padding: 5px 0;
+	border-bottom: 1px dotted #ebebeb;
+}
+
+.widget__item:first-child {
+	padding-top: 0;
+}
+
+.widget__counter--bubble {
+	display: inline-block;
+	padding: 0 6px;
+	font-size: .75rem;
+	color: #666;
+	text-align: center;
+	background: #ebebeb;
+	border-radius: 2em;
+}
+
+/* Search widget */
+.widget-search__form {
+	padding: 16px 24px;
+	background: #f5f5f5;
+}
+
+.widget-search__submit[type=submit] {
+	display: none;
+}
+
+.widget-search__field {
+	width: 100%;
+	padding: 6px 8px;
+	font-size: 13px;
+	cursor: pointer;
+	background: #fff;
+	border: 1px solid #ebebeb;
+	outline-offset: -2px;
+	transition: none;
+	-webkit-appearance: none;
+}
+
+.widget-search__field:active,
+.widget-search__field:focus {
+	cursor: text;
+	outline: 2px solid #005fcc;
+}
+
+/* Social widget */
+.widget-social__item {
+	padding: 0;
+	border: 0;
+}
+
+.widget-social__link {
+	display: block;
+	margin: 0 0 8px;
+	white-space: normal;
+}
+
+.widget-social__link-icon {
+	margin: 0 5px 0 0;
+	vertical-align: middle;
+	fill: #fff;
+}
+
+/* Tags Widget */
+.widget-taglist__link {
+	display: inline-block;
+	margin: 0 4px 8px 0;
+	font-size: 12px;
+	text-transform: uppercase;
+}
+
+/* Languages Widget */
+.widget-languages__link {
+	display: block;
+}
+
+.widget-languages__link:hover .widget-languages__link-btn {
+	color: #fff;
+	background: {{ $highlightColor }};
+}
+
+.widget-languages__link-btn {
+	display: inline-block;
+}
+
+/* Footer */
+.footer {
+	padding: 10px 25px;
+	font-size: 12px;
+	font-size: .75rem;
+	color: #999;
+	background: #2a2a2a;
+	border-top: 3px solid #999;
+}
+
+.footer__container {
+	-webkit-flex-flow: row wrap;
+	flex-flow: row wrap;
+	-webkit-justify-content: space-between;
+	justify-content: space-between;
+}
+
+.footer__links {
+	-webkit-order: 1;
+	order: 1;
+}
+
+.footer a {
+	color: #fff;
+}
+
+.footer a:hover {
+	text-decoration: underline;
+}
+
+/* Media Queries */
+@media screen and (max-width: 1475px) {
+	.container--outer {
+		width: 95%;
+	}
+}
+
+@media screen and (max-width: 900px) {
+	.container--outer {
+		width: 100%;
+		margin: 0 auto;
+	}
+
+	.wrapper,
+	.logo {
+		padding: 20px;
+	}
+
+	.widget {
+		margin-bottom: 20px;
+	}
+
+	.footer__container {
+		display: block;
+	}
+
+	.footer__links {
+		padding-bottom: 8px;
+		padding-bottom: 0.5rem;
+		text-align: center;
+	}
+
+	.footer__copyright {
+		text-align: center;
+	}
+}
+
+@media screen and (max-width: 767px) {
+	.wrapper {
+		display: block;
+	}
+
+	.sidebar {
+		float: none;
+		width: 100%;
+		margin: 0;
+	}
+
+	.logo {
+		text-align: center;
+	}
+
+	.logo__link {
+		margin: 0 auto;
+	}
+
+	.logo__title {
+		font-size: 24px;
+		font-size: 1.5rem;
+	}
+
+	.sidebar {
+		margin-top: 20px;
+	}
+}
+
+@media screen and (max-width: 620px) {
+	input[type=text],
+	input[type=email],
+	input[type=tel],
+	input[type=url] {
+		width: 88%;
+	}
+
+	.meta__item {
+		display: block;
+		margin-left: 0;
+	}
+
+	.authorbox {
+		text-align: center;
+	}
+
+	.authorbox__avatar {
+		display: inline-block;
+		float: none;
+		margin: 0 0 20px;
+	}
+
+	.pager {
+		display: block;
+	}
+
+	.pager__item {
+		min-width: 100%;
+		text-align: center;
+	}
+
+	.pager__item--prev {
+		padding-bottom: 25px;
+	}
+
+	.content ul,
+	.content ol {
+		margin: 0 0 20px 20px;
+	}
+
+	.content ul ul,
+	.content ol ol,
+	.content ol ul,
+	.content ul ol {
+		margin: 0 0 0 20px;
+	}
+
+	.list__thumbnail {
+		max-width: 80px;
+	}
+
+	.list__title {
+		font-size: 16px;
+		font-size: 1rem;
+	}
+
+	.list__lead {
+		font-size: 14px;
+		font-size: .875rem;
+	}
+
+	.list__meta {
+		display: block;
+		font-size: 11px;
+		font-size: .6875rem;
+	}
+}
